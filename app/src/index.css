@@ -1,0 +1,14 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: myFirstFont;
+  background-color: black;
+  color: white;
+}
+
+@font-face {
+  font-family: myFirstFont;
+  src: url("../public/codeman38_press-start-2p/PressStart2P.ttf");
+}
+
+

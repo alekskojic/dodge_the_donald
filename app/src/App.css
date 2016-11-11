@@ -1,0 +1,55 @@
+.App {
+  text-align: center;
+}
+
+.mainBox {
+  position: relative;
+  width: 1020px;
+  height: 300px;
+  margin:0px auto;
+}
+
+.lane1 {
+  height: 100px;
+  border-bottom: thick white;
+  border-bottom-style: dashed;
+  background-color: grey;
+}
+
+.lane2 {
+  height: 100px;
+  background-color: grey;
+}
+
+.lane3 {
+  height: 100px;
+  border-top: thick white;
+  border-top-style: dashed;
+  background-color: grey;
+}
+
+.car {
+  position: absolute;
+  width: 50px;
+  height: 100px;
+  background-image: url("../public/hillary.png");
+  background-size: cover;
+  transition: all .1s ease;
+}
+
+.enemies {
+  position: absolute;
+  height: 100px;
+  width: 50px;
+  background-image: url("../public/trump.png");
+  background-size: cover;
+}
+
+.gameOver {
+  top: 131px;
+  left: 141px;
+  font-size: 50px;
+  color: red;
+  position: absolute;
+  z-index: 1;
+}
