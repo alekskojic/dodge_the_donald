@@ -1,3 +1,10 @@
+/* FEEDBACK
+  Great job using React to create this game. I like how you've separated out different parts of the game (like moving the player, spawning enemies, and checking for collisions)
+  into their own methods, it helps keep your code module and easier to understand.
+  One thing to be aware of when using setInterval: it will try to call the function every time your interval passes, even if the function hasn't finished running the last time.
+  If you make your game more complex (requiring more calculations and time), this could cause a problem for you, with the delays becoming inconsistent.
+  See here for more detail:http://javascript.info/tutorial/settimeout-setinterval#the-real-delay-of-setinterval 
+*/
 import React, { Component } from 'react';
 import './App.css';
 import KeyHandler, {KEYPRESS} from 'react-key-handler';
@@ -32,7 +39,13 @@ class App extends Component {
     this.create1Enemy = this.create1Enemy.bind(this);
     this.movePlayer = this.movePlayer.bind(this);
   }
-   
+   /* FEEDBACK
+      I would try to combine the two create enemy functions into one, since they perform almost the same task.
+      You could handle randomizing the number of enemies within this new create enemy function instead of in your game function,
+      and prevent you from having to repeat some very similar code.
+      If you need to access information from this function in your game function (like how many enemies were created), 
+      your function could return that number/data
+   */
    create2Enemies(enemyIndex, enemies, randomSingleOpenSpace) {
       randomSingleOpenSpace = Math.floor((Math.random() * 3) + 1);
       let secondEnemyIndex = enemyIndex + 1;
@@ -88,7 +101,11 @@ class App extends Component {
      })
      this.setState({enemies: newEnemies});
    }
-
+   /*
+      FEEDBACK: A shorter way of 'increasing' or 'resetting' the index would be to use the modulus (%) operator.
+      enemyIndex = (enemyIndex + 1) % 8; 
+      This would accomplish exactly what you're doing with this function, and is simple enough to do it within your game function instead.
+   */
    checkToResetEnemyIndex(enemyIndex) { //Resets enemy index to zero if we have reached an enemy index of 5
      if (enemyIndex === 7) {
         enemyIndex = 0;
