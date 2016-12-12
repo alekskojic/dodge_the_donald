@@ -6,6 +6,10 @@ body {
   color: white;
 }
 
+* {
+  font-family: myFirstFont
+}
+
 @font-face {
   font-family: myFirstFont;
   src: url("../public/codeman38_press-start-2p/PressStart2P.ttf");

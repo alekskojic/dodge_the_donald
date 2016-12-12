@@ -110,35 +110,54 @@ class App extends Component {
    }
 
    playGame(e) {
-     e.preventDefault();
-     let counter = 124;
-     let enemyIndex = 0; // index of enemy
-     let randomSingleOpenSpace; //open space for when 2 enemies are rendered
-     let randomEnemyLocation; //enemy lane locatio for when 1 enemy is rendered
-     let enemies = this.state.enemies;
-     let game = setInterval(() => { 
-         counter++;
-          if (counter % 125 === 0) {
-          const randomNumberOfEnemies = Math.floor((Math.random() * 2) + 1);
-          if (randomNumberOfEnemies === 2) {
-            this.create2Enemies(enemyIndex, enemies, randomSingleOpenSpace);
-            enemyIndex = this.checkToResetEnemyIndex(enemyIndex);
-            enemyIndex = this.checkToResetEnemyIndex(enemyIndex);
-          } else if (randomNumberOfEnemies === 1) {
-            this.create1Enemy(randomEnemyLocation, enemies, enemyIndex);
-            enemyIndex = this.checkToResetEnemyIndex(enemyIndex);
-          }
-       }
-       this.moveEnemiesLeft(enemies);
-       const crash = this.checkForCrash(enemies);
-       if (crash) {
-         clearInterval(game);
-         this.setState({playerAlive: false});
-       } else {
-         this.checkIfEnemyHasReachedEnd(enemies);
-       }
-       this.setState({score: this.state.score + 1}) 
-       }, 1);
+    if (this.state.playerAlive) {
+      e.preventDefault();
+      let counter = 124;
+      let enemyIndex = 0; // index of enemy
+      let randomSingleOpenSpace; //open space for when 2 enemies are rendered
+      let randomEnemyLocation; //enemy lane location for when 1 enemy is rendered
+      let enemies = this.state.enemies;
+      let game = setInterval(() => { 
+          counter++;
+            if (counter % 125 === 0) {
+            const randomNumberOfEnemies = Math.floor((Math.random() * 2) + 1);
+            if (randomNumberOfEnemies === 2) {
+              this.create2Enemies(enemyIndex, enemies, randomSingleOpenSpace);
+              enemyIndex = this.checkToResetEnemyIndex(enemyIndex);
+              enemyIndex = this.checkToResetEnemyIndex(enemyIndex);
+            } else if (randomNumberOfEnemies === 1) {
+              this.create1Enemy(randomEnemyLocation, enemies, enemyIndex);
+              enemyIndex = this.checkToResetEnemyIndex(enemyIndex);
+            }
+        }
+        this.moveEnemiesLeft(enemies);
+        const crash = this.checkForCrash(enemies);
+        if (crash) {
+          clearInterval(game);
+          this.setState({playerAlive: false});
+        } else {
+          this.checkIfEnemyHasReachedEnd(enemies);
+        }
+        this.setState({score: this.state.score + 1}) 
+        }, 1);
+     } else {
+      this.setState({
+        score: 0,
+        playerAlive: true,
+        playerTop: -2,
+        playerLeft: 10,  //players position
+        enemies: [
+          {text: 'en1', display: false, top: 3, left: 960}, //position of enemies
+          {text: 'en2', display: false, top: 3, left: 960},
+          {text: 'en3', display: false, top: 3, left: 960},
+          {text: 'en4', display: false, top: 3, left: 960},
+          {text: 'en5', display: false, top: 3, left: 960},
+          {text: 'en6', display: false, top: 3, left: 960},
+          {text: 'en7', display: false, top: 3, left: 960},
+          {text: 'en8', display: false, top: 3, left: 960}
+        ]
+      }); 
+     }
    }
 
    movePlayer(e) {
@@ -181,7 +200,10 @@ class App extends Component {
             <div className="lane3"></div>
             <div className="car" style={playerStyle}></div>
             {enemies}
-            <button onClick={this.playGame}><h1>Start</h1></button>
+            <button onClick={this.playGame}><h1>{this.state.playerAlive ? "Start" : "Reset"}</h1></button>
+            <br/>
+            <br/>
+            <div>Use the W & S keys to move Hilary up and down.</div>
           </div>
       </div>
     );
